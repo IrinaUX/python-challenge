@@ -4,6 +4,7 @@ import csv
 
 # Set the file path
 path=os.path.join("Resources","budget_data.csv")
+output_file = "output.txt"
 
 # Define a function to count total number of months.
 '''
@@ -45,7 +46,7 @@ Use sum method on the profit_list to obtain the total revenue.
 At the same time, round the sum value.
 Print the statement and write into output.txt file
 '''
-def findRevenueTotal(path):
+def findRevenueTotal(path, output_file):
     with open(path, 'r', newline='') as file_input: # open('output.txt', 'wb') as file_output:
         csv_reader_object = csv.reader(file_input, delimiter=',')
         next(csv_reader_object)
@@ -56,7 +57,7 @@ def findRevenueTotal(path):
         print(f"Total profit and loss is ${total_profit_and_loss}.")
 
         # Append to an existing file:
-        textFileOutput = open("output.txt","a+")
+        textFileOutput = open(output_file,"a+")
         textFileOutput.write(f"Total $: {total_profit_and_loss} \n")
         textFileOutput.close()
 
@@ -70,54 +71,45 @@ Define two variables to store current and previous values to calculate the chang
 Initialize both variables as None to use in the conditional statements.
 When values are still in their initial state, then assign the current values.
 When both values are available, then compute the difference.
-Print to the console.
-Note: still working on how to make the last row to be taken into the computation loop.
-Note: currently the loop does not take the last row into the computation.
+For the average computation add the following:
+Two new variables to hold the running total of changes and the row count number.
+Calculate the average and round the results before writing to the text output file.
 '''
-# def averageChange(path):
-#     # Define the variables for the difference calculation - num0 is previous value and num1 is the current value.
-#     num0 = None # initialize variable as None (not zero, no value assigned)
-#     num1 = None # initialize variable as None (not zero, no value assigned)
-#     with open(path, 'r') as file_input:
-#         csv_reader_object = csv.reader(file_input, delimiter=',')
-#         next(csv_reader_object) # skip the header of the csv file
-#         # Start For loop to iterate over the csv file line by line:
-#         for value in csv_reader_object: # for each line in the csv file
-#             if num0 is None: # if num0 is still None - not assigned yet, then:
-#                 num0 = int(value[1]) # assign the value from current row's column.index[1].
-#             elif num0 is not None and num1 is None: # Check the second row.
-#                 # if num0 is available, but num1 is still not assigned, then assign num1 variable value from the current row's column.index[1].
-#                 num1 = int(value[1]) # assign value to the second number.
-#             elif num0 is not None and num1 is not None: # Finally, when both values are available, then:
-#                 change = num1 - num0 # compute the difference.
-#                 print(f"{num1} - {num0} = ${change}.") # print to the terminal
-#                 num0 = num1 # swap the value of num0 to the num1 for the next loop's calculation.
-#                 num1 = int(value[1]) # assign a new value to the num1 variable for the next loop's calculation.
-                
-def averageChange(path):
+def averageChange(path, output_file):
     # Define the variables for the difference calculation - num0 is previous value and num1 is the current value.
     num0 = 0 # initialize variable as None (not zero, no value assigned)
     num1 = 0 # initialize variable as None (not zero, no value assigned)
-    #num0ValueFound = False
+    runningTotalChanges = 0 # Create and initialize variable to keep the running total of the changes for future average calculation.
+    row_count = 0 # Create and initialize variable to count the total number of rows for average calculation.
+                  # Note: the row count is 86 without the header. But changes are only computed for the 85 rows, since the first row does not have previous value.
+                  # Hence, need to initialize as 0 to not take first 0 changes into the average computation.
+    changes_average = 0 # Create and initialize variable for the average changes.
     with open(path, 'r') as file_input:
         csv_reader_object = csv.reader(file_input, delimiter=',')
         next(csv_reader_object)
         for value in csv_reader_object: # for each line in the csv file
-            #print(f"num0 in the FOOR LOOP is ${num0}.")
             if num0 == 0: # Check the second row.
-                num0 = int(value[1]) 
-                #print(f"num0 in the IF STATEMENT is ${num0}.")
-                # num0ValueFound == True
+                num0 = int(value[1])
             else: # for all the other rows
                 num1 = int(value[1]) # assign value to the second number.
-                #print(f"num0 value in the IF statement is {num0}.")
-                #print(f"num0 value in the IF statement is {num1}.")
                 change = num1 - num0 # compute the difference.
                 print(f"{num1} - {num0} = ${change}.") # print to the terminal
+                runningTotalChanges = runningTotalChanges + change # add current difference to the running total.
                 num0 = num1
-                
+                print(f"Running total in changes is ${runningTotalChanges}.")
+                row_count += 1
+                print(f"Row count is {row_count}.")
+        # Outside of the FOR loop, compute the total of all changes over row count:
+        print(f"Row count is = {row_count} and total changes are ${runningTotalChanges}.")
+        changes_average = runningTotalChanges / row_count # calculate the average changes.
+        print(changes_average)
+
+        # Write the results to the text file:
+        textFileOutput = open(output_file,"a+")
+        textFileOutput.write(f"Average Change: ${round(changes_average, 2)} \n") # round the printed output average to 2 decimal points.
+        textFileOutput.close()
 
 # Call the functions to perform budget analysis:
 findTotalNumberOfMonths(path)
-findRevenueTotal(path)
-averageChange(path)
+findRevenueTotal(path, output_file)
+averageChange(path, output_file)
