@@ -20,7 +20,7 @@ Create text file named output.txt in write mode (also create new file, if does n
 Write first line.
 Write new lines.
 '''
-def findTotalNumberOfMonths(path):
+def find_months_total(path):
     with open(path, 'r', newline='') as file_input: # open('output.txt', 'wb') as file_output:
         #csv_reader_object = csv.reader(file_input, delimiter=',')
         iterRows = iter(file_input)
@@ -46,7 +46,7 @@ Use sum method on the profit_list to obtain the total revenue.
 At the same time, round the sum value.
 Print the statement and write into output.txt file
 '''
-def findRevenueTotal(path, output_file):
+def find_revenue_total(path, output_file):
     with open(path, 'r', newline='') as file_input: # open('output.txt', 'wb') as file_output:
         csv_reader_object = csv.reader(file_input, delimiter=',')
         next(csv_reader_object)
@@ -81,7 +81,7 @@ c)  To identify the greatest profit increase and decrease with their respective 
     Output the results into the summary table
 '''               
 
-def calculateGreatestProfitIncrease(path, output_file):
+def calculate_average_changes_and_pnl_max_min(path, output_file):
     # Define the variables for the difference calculation - num0 is previous value and num1 is the current value.
     num0 = 0 # initialize variable as None (not zero, no value assigned)
     num1 = 0 # initialize variable as None (not zero, no value assigned)
@@ -96,8 +96,9 @@ def calculateGreatestProfitIncrease(path, output_file):
     date_greatest_decrease = "" # Create and initialize variable to store the date for the greatest decrease for the output file.
     with open(path, 'r') as file_input:
         csv_reader_object = csv.reader(file_input, delimiter=',')
-        next(csv_reader_object)
-        for value in csv_reader_object: # for each line in the csv file
+        next(csv_reader_object) # skip the header line
+        # Start the for loop to iterate through each line in the csv file
+        for value in csv_reader_object: 
             if num0 == 0: # Check the second row.
                 num0 = int(value[1]) 
             else: # for all the other rows
@@ -109,6 +110,7 @@ def calculateGreatestProfitIncrease(path, output_file):
                 print(f"Running total in changes is ${runningTotalChanges}.")
                 row_count += 1
                 print(f"Row count is {row_count}.")
+                
                 # Add condition to check if the changes are positive or negative for the Greatest increase and Greatest decrease identification.
                 if change > changes_greatest_increased:
                     #print(f"Calculated change of ${change} larger than recorded greatest change of ${changes_greatest_increased}.")
@@ -119,7 +121,7 @@ def calculateGreatestProfitIncrease(path, output_file):
                 elif change < changes_greatest_decreased:
                     changes_greatest_decreased = change
                     date_greatest_decrease = (value[0]) # get the date from the same row index[0]
-                #print(f"The greatest change is ${change}.")
+                
         # Outside of the FOR loop, compute the total of all changes over row count:
         print(f"Row count is = {row_count} and total changes are ${runningTotalChanges}.")
         changes_average = runningTotalChanges / row_count # calculate the average changes.
@@ -136,6 +138,6 @@ def calculateGreatestProfitIncrease(path, output_file):
 
 
 # Call the functions to perform budget analysis:
-findTotalNumberOfMonths(path)
-findRevenueTotal(path, output_file)
-calculateGreatestProfitIncrease(path, output_file)
+find_months_total(path)
+find_revenue_total(path, output_file)
+calculate_average_changes_and_pnl_max_min(path, output_file)
