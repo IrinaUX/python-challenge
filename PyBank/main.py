@@ -26,7 +26,9 @@ def find_months_total(path):
         iterRows = iter(file_input)
         next(iterRows)
         rows_num = (sum(1 for _ in iterRows))
-        print(f"The budget data is available for total of {rows_num} months.")
+        print("Financial Analysis")
+        print("--------------------------")
+        print(f"Total Months: {rows_num}")
         textFileOutput = open("output.txt","w+")
         textFileOutput.write("Financial Analysis \n")
         textFileOutput.write("--------------------------- \n")
@@ -54,7 +56,7 @@ def find_revenue_total(path, output_file):
         for value in csv_reader_object:
             profit_list.append(int(value[1]))
         total_profit_and_loss = round(sum(profit_list))
-        print(f"Total profit and loss is ${total_profit_and_loss}.")
+        print(f"Total: ${total_profit_and_loss}.")
 
         # Append to an existing file:
         textFileOutput = open(output_file,"a+")
@@ -104,30 +106,30 @@ def calculate_average_changes_and_pnl_max_min(path, output_file):
             else: # for all the other rows
                 num1 = int(value[1]) # assign value to the second number.
                 change = num1 - num0 # compute the difference.
-                print(f"{num1} - {num0} = ${change}.") # print to the terminal
+                #print(f"{num1} - {num0} = ${change}.") # print to the terminal
                 runningTotalChanges = runningTotalChanges + change # add current difference to the running total.
                 num0 = num1
-                print(f"Running total in changes is ${runningTotalChanges}.")
+                #print(f"Running total in changes is ${runningTotalChanges}.")
                 row_count += 1
-                print(f"Row count is {row_count}.")
+                #print(f"Total Months: {row_count}")
                 
                 # Add condition to check if the changes are positive or negative for the Greatest increase and Greatest decrease identification.
                 if change > changes_greatest_increased:
                     #print(f"Calculated change of ${change} larger than recorded greatest change of ${changes_greatest_increased}.")
                     changes_greatest_increased = change
                     date_greatest_increase = (value[0]) # get the date from the same row index[0]
-                    print(f"The data of greatest increase is {date_greatest_increase}.")
+                    #print(f"The data of greatest increase is {date_greatest_increase}.")
                     #print(f"Updated greatest change is ${change}.")
                 elif change < changes_greatest_decreased:
                     changes_greatest_decreased = change
                     date_greatest_decrease = (value[0]) # get the date from the same row index[0]
                 
         # Outside of the FOR loop, compute the total of all changes over row count:
-        print(f"Row count is = {row_count} and total changes are ${runningTotalChanges}.")
+        #print(f"Row count is = {row_count} and total changes are ${runningTotalChanges}.")
         changes_average = runningTotalChanges / row_count # calculate the average changes.
-        print(changes_average)
-        print(f"Greatest profit increase: {date_greatest_increase} (${changes_greatest_increased})")
-        print(f"Greatest profit decrease: {date_greatest_decrease} (${changes_greatest_decreased})")
+        print(f"Average Change: ${round(changes_average, 2)}")
+        print(f"Greatest Increase in Profits: {date_greatest_increase} (${changes_greatest_increased})")
+        print(f"Greatest Decrease in Profits: {date_greatest_decrease} (${changes_greatest_decreased})")
 
         # Write the results to the text file:
         textFileOutput = open(output_file,"a+")
@@ -141,3 +143,4 @@ def calculate_average_changes_and_pnl_max_min(path, output_file):
 find_months_total(path)
 find_revenue_total(path, output_file)
 calculate_average_changes_and_pnl_max_min(path, output_file)
+
