@@ -74,47 +74,25 @@ Print to the console.
 Note: still working on how to make the last row to be taken into the computation loop.
 Note: currently the loop does not take the last row into the computation.
 '''
-# def averageChange(path):
-#     # Define the variables for the difference calculation - num0 is previous value and num1 is the current value.
-#     num0 = None # initialize variable as None (not zero, no value assigned)
-#     num1 = None # initialize variable as None (not zero, no value assigned)
-#     with open(path, 'r') as file_input:
-#         csv_reader_object = csv.reader(file_input, delimiter=',')
-#         next(csv_reader_object) # skip the header of the csv file
-#         # Start For loop to iterate over the csv file line by line:
-#         for value in csv_reader_object: # for each line in the csv file
-#             if num0 is None: # if num0 is still None - not assigned yet, then:
-#                 num0 = int(value[1]) # assign the value from current row's column.index[1].
-#             elif num0 is not None and num1 is None: # Check the second row.
-#                 # if num0 is available, but num1 is still not assigned, then assign num1 variable value from the current row's column.index[1].
-#                 num1 = int(value[1]) # assign value to the second number.
-#             elif num0 is not None and num1 is not None: # Finally, when both values are available, then:
-#                 change = num1 - num0 # compute the difference.
-#                 print(f"{num1} - {num0} = ${change}.") # print to the terminal
-#                 num0 = num1 # swap the value of num0 to the num1 for the next loop's calculation.
-#                 num1 = int(value[1]) # assign a new value to the num1 variable for the next loop's calculation.
-                
 def averageChange(path):
     # Define the variables for the difference calculation - num0 is previous value and num1 is the current value.
-    num0 = 0 # initialize variable as None (not zero, no value assigned)
-    num1 = 0 # initialize variable as None (not zero, no value assigned)
-    #num0ValueFound = False
-    with open(path, 'r') as file_input:
+    num0 = None # initialize variable as None (not zero, no value assigned)
+    num1 = None # initialize variable as None (not zero, no value assigned)
+    with open(path, 'r', newline='') as file_input:
         csv_reader_object = csv.reader(file_input, delimiter=',')
-        next(csv_reader_object)
+        next(csv_reader_object) # skip the header of the csv file
+        # Start For loop to iterate over the csv file line by line:
         for value in csv_reader_object: # for each line in the csv file
-            #print(f"num0 in the FOOR LOOP is ${num0}.")
-            if num0 == 0: # Check the second row.
-                num0 = int(value[1]) 
-                #print(f"num0 in the IF STATEMENT is ${num0}.")
-                # num0ValueFound == True
-            else: # for all the other rows
+            if num0 is None: # if num0 is still None - not assigned yet, then:
+                num0 = int(value[1]) # assign the value from current row's column.index[1].
+            elif num0 is not None and num1 is None: # Check the second row.
+                # if num0 is available, but num1 is still not assigned, then assign num1 variable value from the current row's column.index[1].
                 num1 = int(value[1]) # assign value to the second number.
-                #print(f"num0 value in the IF statement is {num0}.")
-                #print(f"num0 value in the IF statement is {num1}.")
+            elif num0 is not None and num1 is not None: # Finally, when both values are available, then:
                 change = num1 - num0 # compute the difference.
                 print(f"{num1} - {num0} = ${change}.") # print to the terminal
-                num0 = num1
+                num0 = num1 # swap the value of num0 to the num1 for the next loop's calculation.
+                num1 = int(value[1]) # assign a new value to the num1 variable for the next loop's calculation.
                 
 
 # Call the functions to perform budget analysis:
