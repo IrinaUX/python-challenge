@@ -1,5 +1,7 @@
 import os
 import csv
+import itertools
+#import pandas as pd
 
 path=os.path.join("Resources","budget_data.csv")
 #print(path)
@@ -8,15 +10,39 @@ path=os.path.join("Resources","budget_data.csv")
 
 # PyBank 1 - The total number of months included in the dataset
 
-with open(path, 'r') as file:
-    iterRows = iter(file)
+with open(path, 'r') as file_input: # open('output.txt', 'wb') as file_output:
+    csv_reader_object = csv.reader(file_input)
+    # csv_output_object = csv.writer(file_output)
+    # csv_output_object.write(file_output)
+    iterRows = iter(file_input)
     next(iterRows)
-    rowsNum = (sum(1 for _ in iterRows))
+    rows_num = (sum(1 for _ in iterRows))
     #rowsNumWithoutHeader = rowsNum - 1
-    print(f"The budget data is available for total of {rowsNum} months.")
- # PyBank 2 - The net total amount of "Profit/Losses" over the entire period
-   
-    
+    print(f"The budget data is available for total of {rows_num} months.")
+    # Write to a new file:
+    textFileOutput = open("output.txt","w+")
+    textFileOutput.write(f"The budget data is available for total of {rows_num} months.")
+    textFileOutput.close()
+    # PyBank 2 - The net total amount of "Profit/Losses" over the entire period
+        # Try to read index directly without extracting the column to a list
+    #csvreader = csv.reader(path,delimiter=',')
+    ##for lines in csvreader:
+      #  print(lines[1])
+
+        # Try to make a list of all the values in column "Profit/Losses" (index[1])
+    # colProfitLosses =[]
+# def running_total(a):
+#     total = 0
+#     for item in a:
+#         total += item
+#         yield total
+# running_total()
+    #csv_reader_object = csv.reader(file)
+    # total = sum(int([x]) for _ in iterRows[1])
+
+    # print(list(itertools.accumulate(csv_reader_object)))
+    # print(sum(float(r['Profit/Losses']) for r in csv_reader_object))
+    # print([x+x for x in csv_reader_object])
     # has_header = csv.Sniffer().has_header(file.read(1024))
     # file.seek(0)
     # csv_reader_object = csv.reader(file)
@@ -72,8 +98,4 @@ with open(path, 'r') as file:
 # # Find the total number of months included in the dataset
 #     data = list(csvreader)
 #     rowcount = len(data)
-#     print(rowcount)
-
-
-
-
+#     print(rowcount)  
