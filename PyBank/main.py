@@ -9,9 +9,14 @@ path=os.path.join("Resources","budget_data.csv")
 # PyBank 1 - The total number of months included in the dataset
 
 with open(path, 'r') as file:
-    rowsNum = (sum(1 for _ in file))
-    rowsNumWithoutHeader = rowsNum - 1
-    print(rowsNumWithoutHeader)
+    iterRows = iter(file)
+    next(iterRows)
+    rowsNum = (sum(1 for _ in iterRows))
+    #rowsNumWithoutHeader = rowsNum - 1
+    print(f"The budget data is available for total of {rowsNum} months.")
+ # PyBank 2 - The net total amount of "Profit/Losses" over the entire period
+   
+    
     # has_header = csv.Sniffer().has_header(file.read(1024))
     # file.seek(0)
     # csv_reader_object = csv.reader(file)
