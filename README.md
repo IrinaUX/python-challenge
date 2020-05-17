@@ -5,16 +5,14 @@ Python - week 1 - homework
 
 ## PyBank
 For this analysis, three functions have been implemented:
-1. Find total number of months. \n
-2. Find total revenue. \n
-3. Find the profit and loss change (in progress). \n
-\n
-Below is the current documentation for each function: \n
+1. Find total number of months.
+2. Find total revenue.
+3. Find the profit and loss change (in progress). 
+Below is the current documentation for each function:
 All functions use global variable "path" to pass the file path.
 
 ### Define a function to count total number of months.
 ### def findTotalNumberOfMonths(path)
-'''
 This function takes the path variable defined outside the function as an input.
 With provided path, open the csv file using "with" method to avoid issues, when forgetting to close the file.
 Open csv file in read mode and optional parameter newline default to null.
@@ -26,11 +24,10 @@ Print the found months.
 Create text file named output.txt in write mode (also create new file, if does not exist).
 Write first line.
 Write new lines.
-'''
+
 
 ### Define function to find the total revenue:
 ### def findRevenueTotal(path)
-'''
 The function takes path parameter as an input.
 Open file in read mode.
 Use csv reader method to read the file line by line
@@ -41,11 +38,9 @@ At the same time, define the value as data type integer.
 Use sum method on the profit_list to obtain the total revenue.
 At the same time, round the sum value.
 Print the statement and write into output.txt file
-'''
 
 ### Define a function to calculate the average change in revenue.
 ### def averageChange(path) 
-'''
 The function takes path parameter as an input and perform the following:
 Open file in read mode.
 Use csv reader method to read the file line by line.
@@ -57,4 +52,3 @@ When both values are available, then compute the difference.
 Print to the console.
 Note: still working on how to make the last row to be taken into the computation loop.
 Note: currently the loop does not take the last row into the computation.
-'''
