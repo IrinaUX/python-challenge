@@ -5,11 +5,11 @@ Python - week 1 - homework
 
 ## PyBank
 For this analysis, three functions have been implemented:
-1. Find total number of months.
-2. Find total revenue.
-3. Find the profit and loss change (in progress).
-
-Below is the current documentation for each function:
+1. Find total number of months. \n
+2. Find total revenue. \n
+3. Find the profit and loss change (in progress). \n
+\n
+Below is the current documentation for each function: \n
 All functions use global variable "path" to pass the file path.
 
 ### Define a function to count total number of months.
