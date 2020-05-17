@@ -4,19 +4,35 @@ import csv
 path=os.path.join("Resources","budget_data.csv")
 #print(path)
 
-# * Your task is to create a Python script that analyzes the records to calculate each of the following:
+# PyBank * Your task is to create a Python script that analyzes the records to calculate each of the following:
 
-#   * The total number of months included in the dataset
+# PyBank 1 - The total number of months included in the dataset
 
 with open(path, 'r') as file:
-    csv_reader_object = csv.reader(file)
-    for row in csv_reader_object:
-        print("CSV row: {0}".format(row))
+    rowsNum = (sum(1 for _ in file))
+    rowsNumWithoutHeader = rowsNum - 1
+    print(rowsNumWithoutHeader)
+    # has_header = csv.Sniffer().has_header(file.read(1024))
+    # file.seek(0)
+    # csv_reader_object = csv.reader(file)
+    # print(sum(int(x[1]) for x in csv_reader_object))
+    # if has_header:
+    #     next(csv_reader_object)
+    #     #for row in csv_reader_object:
+            #print("CSV row: {0}".format(row))
+            #print(type({1}))
     #csv_reader_object.line_num
+    #csvreader=csv.reader(path,delimiter=',')
     #csvheader = next(csv_reader_object)
-    linesWithoutHeader = csv_reader_object.line_num - 1
-    print(f"Total number of months (rows) is {str(linesWithoutHeader)}.")
+    #header = next(csvreader) # skip the header
+    #linesWithoutHeader = csv_reader_object.line_num - 1
+    #print(f"Total number of months (rows) is {str(linesWithoutHeader)}.")
+# PyBank 2 - The net total amount of "Profit/Losses" over the entire period
 
+    # total = sum(long(row["Profit/Losses"]) for row in csv_reader_object)
+    # print(total)
+    # column = 1
+    # print(type(csv_reader_object))
 # def file_len(path):
 #     with open(path) as f:
 #         for i in enumerate(f):
@@ -52,7 +68,6 @@ with open(path, 'r') as file:
 #     data = list(csvreader)
 #     rowcount = len(data)
 #     print(rowcount)
-
 
 
 
