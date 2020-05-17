@@ -61,124 +61,41 @@ def findRevenueTotal(path):
         textFileOutput.close()
 
 # Define a function to calculate the average change in revenue.
+'''
+The function takes path parameter as an input and perform the following:
+Open file in read mode.
+Use csv reader method to read the file line by line.
+Use next() method to skip the header.
+Define two variables to store current and previous values to calculate the change.
+Initialize both variables as None to use in the conditional statements.
+When values are still in their initial state, then assign the current values.
+When both values are available, then compute the difference.
+Print to the console.
+Note: still working on how to make the last row to be taken into the computation loop.
+Note: currently the loop does not take the last row into the computation.
+'''
 def averageChange(path):
-    # maxPostive = 0
-    # maxNegative = 0
-    # changeNegative = []
-    # changePositive = []
-    num0 = None
-    num1 = None
-    #change = 0
-    #num2 = None
+    # Define the variables for the difference calculation - num0 is previous value and num1 is the current value.
+    num0 = None # initialize variable as None (not zero, no value assigned)
+    num1 = None # initialize variable as None (not zero, no value assigned)
     with open(path, 'r', newline='') as file_input:
         csv_reader_object = csv.reader(file_input, delimiter=',')
-        next(csv_reader_object) # skip the header
-        #str1 = next(csv_reader_object) # assign next row to str1 parameter
-        #print(str1)
-        #string_split = str1.index[1]
-        #print(string_split)
-        for value in csv_reader_object:
-            if num0 is None:
-                #print(f"num0 in the IF branch = ${num0}.")
-                num0 = int(value[1])
-                #print(num0)
-                #print(f"num0 in the IF branch after assigning the value is ${num0}.")
-                #print(f"If num0 is None, then assign num0 a pnl value from column 2 -> ${num0}.")
-                # num0 = num1
-                #next(csv_reader_object) 
+        next(csv_reader_object) # skip the header of the csv file
+        # Start For loop to iterate over the csv file line by line:
+        for value in csv_reader_object: # for each line in the csv file
+            if num0 is None: # if num0 is still None - not assigned yet, then:
+                num0 = int(value[1]) # assign the value from current row's column.index[1].
             elif num0 is not None and num1 is None: # Check the second row.
-                #print(f"num0 in the first ELIF branch = ${num0}.")
-                #print(f"num1 in the first ELIF branch is {num1}.")
+                # if num0 is available, but num1 is still not assigned, then assign num1 variable value from the current row's column.index[1].
                 num1 = int(value[1]) # assign value to the second number.
-                #print(f"{num1}")
-                #print(f"num1 in the first ELIF branch is ${num1}.")
-                #next(csv_reader_object) 
-                #print(f"If num1 is None, then assign num1 a pnl value --> ${num1}.")
-            elif num0 is not None and num1 is not None:
-                #print(f"num0 value in the SECOND ELIF branch = ${num0}.")
-                #print(f"num1 value in the SECOND ELIF branch = ${num1}.")
-                # since the change for the first two numbers was already computed in the first ELIF branch, skip the line:
-                # next(csv_reader_object) # does not do much here, still the same values are used:
-                #print(f"{num1} - {num0}")
-                #print(f"-{num0}")
-                change = num1 - num0 # Note: if num0 is available and num1 is assigned, then can compute the difference.
-                print(f"{num1} - {num0} = ${change}.")
-                num0 = num1
-                #print(f"---------")
-                #print(f"num0 ${num0}.")
-                num1 = int(value[1])
-                #print(f"num1 ${num1}.")
-                #next(csv_reader_object)
-                #print(f"AFTER NEXT: num0 value in the SECOND ELIF branch = ${num0}.")
-                #print(f"AFTER NEXT: num1 value in the SECOND ELIF branch = ${num1}.")
+            elif num0 is not None and num1 is not None: # Finally, when both values are available, then:
+                change = num1 - num0 # compute the difference.
+                print(f"{num1} - {num0} = ${change}.") # print to the terminal
+                num0 = num1 # swap the value of num0 to the num1 for the next loop's calculation.
+                num1 = int(value[1]) # assign a new value to the num1 variable for the next loop's calculation.
                 
 
-            # elif num0 is not None and num1 is not None: # if both adjacent values are available, then can calculate the difference.
-            #     #changeInt = int(change)
-            #     print(num0)
-            #     print(num1)
-            #     change = num1 - num0 # calculate the difference between the available two adjacent values.
-            #     print(f"Change is ${change}.") # print the statement.
-            #     num0 = num1 # assign num0 a new value from num1 for the next iteration's calculation.
-            #     num1 = int(value[1]) # read num1 value from the current row.
-                # next(csv_reader_object) 
-            # # elif num0 is not None and num1 is not None: # for the second row and onwards.
-                
-            #     change = num1 - num0
-            #     print("The difference between two adjacent numbers is ${change}.")
-            #     # num1 = int(value[1])
-                # print(f"The current csv reader object in for loop is {num0}.")
-                
-            # if num0 == None: # first value in column Profit/Losses is unknown
-            #     num0 = int(value[1])
-            #     print(f"The very first value in column pnl is ${num0}.")
-            #     #changeNegative.append(int(value[1]))
-            #     #print(f"Losses collected in one list ${changeNegative}.")
-            #     #next(csv_reader_object) # proceed to the next line.
-            # elif num0 is not None and num1 == None:
-            #     num1 = int(value[1]) # assign value to the num1 variable.
-            #     print(f"The second value after very first is ${num1}.")
-            #     change = num1 - num0 # calculate the change between the first two values.
-            #     #next(csv_reader_object)
-            #     print(f"The change between the first two values is ${change}.")
-            #     num0 = num1
-            #     print(f"Assigned num1 value to the num0 variable -> ${num0}.")
-            #     #next(csv_reader_object)
-            #     #print(f"The next csv reader object is {int(value[1])}.")
-            # elif num0 is not None and num1 is not None:
-            #     #num1 = int(value[1])
-            #     #print(f"The first value in column pnl is ${num1}.")
-            #     change = num1 - num0
-            #     #num1 = next(int(value[1]))
-            #     #print(f"Next first value is changed to $ {num1}.")
-            #     num0 = num1
-            #     num1 = int(value[1])
-            #     next(csv_reader_object)
-            #     print(f"Pnl change is ${change}.")
-                
-            # elif num1 is not None and num2 is not None:
-            #     num2 = int(value[1])
-            #     print(f"The second value in column pnl is ${num2}.")
-            #     change = num2 - num1
-            #     print(f"Next Pnl change is ${change}.")
-            #     next(csv_reader_object)
-            #     print(f"Next second value is changed to $ {num2}.")
-            # elif num0 is not None and num1 is not None: # when two values for comparison are not absent.
-            #     change = num1 - num0
-            #     print(change)
-
-
-
-    # print(f"The first value in column pnl is ${num1}.")
-    # print(f"The next value in column pnl is ${num2}.")
-    # Compute the difference between the two numbers (previous and next):
-    
-                #changePositive.append(int(value[1]))
-                #print(f"Losses collected in one list ${changePositive}.")
-    #print(f"LOSSES collected in one list ${changeNegative}.")
-    #print(f"PROFIT collected in one list ${changePositive}.")
-
-# Call functions one by one to process the budget file
+# Call the functions to perform budget analysis:
 findTotalNumberOfMonths(path)
 findRevenueTotal(path)
 averageChange(path)
