@@ -52,3 +52,38 @@ All functions use global variable "path" to pass the file path.
 - Print to the console.
 - Note: still working on how to make the last row to be taken into the computation loop.
 - Note: currently the loop does not take the last row into the computation.
+
+
+## PyPoll
+For this analysis three functions have been implemented (note: only two are used)
+1. Find total number of votes
+2. Create a list of candidates
+3. Analyze the votes results per candidate
+Below is the current documentation for each function:
+All functions use global variable "path" to pass the file path.
+
+### Define a function to count total number of months.
+### def find_votes_total(path)
+- This function takes the path variable defined outside the function as an input.
+- Also uses an output_file variable to specify the path and the file name for the outputs.
+- Using list comprehension, count the total number of rows and output the results as Total Votes.
+
+### def create_candidates_list
+### (not used in the final analysis, for testing only)
+- This auxiliary function is to create a list with all the candidates in the elections.
+- The functino opens provides csv file in read mode
+- Iterates through the csv_reader_object to check if candidate is already included in the list of candidates.
+- If candidate is not yet in the list, then add it. Otherwise, continue the loop
+
+### def analyze_votes_per_candidates
+- The function takes two parameters as input - input file path and output file path and name of the file.
+- Open file in read mode.
+- Initialize rows_num - total number of rows in the csv file
+- Initialize list_of_candidates list as empty
+- Iterate through the file and add the candidate to the list of candidates, if not present yet.
+- While iteraring also count the number of rows for the percentage calculation.
+- User the Counter method to create a dictionary with candidates and their accumulated votes.
+- Use max() method on the list of candidates to find the candidate with the maximum votes.
+- Using list comprehension, create a new list with candidates with the maximum votes
+- Print formatted results to the console and to the text file.
+    
