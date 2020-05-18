@@ -4,7 +4,8 @@ import csv
 
 # Set the file path
 path=os.path.join("Resources","budget_data.csv")
-output_file = "output.txt"
+#output_path = "analysis"
+output_file = "analysis/output.txt"
 
 # Define a function to count total number of months.
 '''
@@ -29,7 +30,8 @@ def find_months_total(path):
         print("Financial Analysis")
         print("--------------------------")
         print(f"Total Months: {rows_num}")
-        textFileOutput = open("output.txt","w+")
+        #output_path = "analysis"
+        textFileOutput = open(output_file,"w+")
         textFileOutput.write("Financial Analysis \n")
         textFileOutput.write("--------------------------- \n")
         textFileOutput.write(f"Total Months: {rows_num} \n")
