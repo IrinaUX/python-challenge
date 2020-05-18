@@ -63,9 +63,10 @@ def find_candidate_with_maximum_votes(path, output_file):
     Initialize list_of_candidates list as empty
     Iterate through the file and add the candidate to the list of candidates, if not present yet.
     While iteraring also count the number of rows for the percentage calculation.
+    User the Counter method to create a dictionary with candidates and their accumulated votes.
     Use max() method on the list of candidates to find the candidate with the maximum votes.
     Using list comprehension, create a new list with candidates with the maximum votes
-    votes and calculate the percentage for the candidate with max votes.
+    Print formatted results to the console and to the text file.
     '''
     with open(path, 'r', newline='') as file_input: # open('output.txt', 'wb') as file_output:
         csv_reader_object = csv.reader(file_input, delimiter=',')
@@ -93,7 +94,7 @@ def find_candidate_with_maximum_votes(path, output_file):
         # Start a for loop over the list of candidates sorted by their votes.
         # Calculate the percentage and output in the console and the text file
         for i in range(len(vote_count_sorted)):
-            candidate_percentage = round((((vote_count_sorted[i][1]) / rows_num) * 100), 2)
+            candidate_percentage = round((((vote_count_sorted[i][1]) / rows_num) * 100), 3)
             print(f"{vote_count_sorted[i][0]}: {candidate_percentage}% ({vote_count_sorted[i][1]})")
             textFileOutput.write(f"{vote_count_sorted[i][0]}: {candidate_percentage}% ({vote_count_sorted[i][1]}) \n")
         
