@@ -3,7 +3,7 @@ Python - week 1 - homework
 
 # Python Homework notes, by Irina Kim.
 
-## PyBank
+## I. PyBank
 For this analysis, three functions have been implemented:
 1. Find total number of months.
 2. Find total revenue.
@@ -12,7 +12,7 @@ Below is the current documentation for each function:
 All functions use global variable "path" to pass the file path.
 
 ### Define a function to count total number of months.
-### def findTotalNumberOfMonths(path)
+#### 1. def findTotalNumberOfMonths(path)
 - This function takes the path variable defined outside the function as an input.
 - With provided path, open the csv file using "with" method to avoid issues, when forgetting to close the file.
 - Open csv file in read mode and optional parameter newline default to null.
@@ -27,7 +27,7 @@ All functions use global variable "path" to pass the file path.
 
 
 ### Define function to find the total revenue:
-### def findRevenueTotal(path)
+#### 2. def findRevenueTotal(path)
 - The function takes path parameter as an input.
 - Open file in read mode.
 - Use csv reader method to read the file line by line
@@ -40,7 +40,7 @@ All functions use global variable "path" to pass the file path.
 - Print the statement and write into output.txt file
 
 ### Define a function to calculate the average change in revenue.
-### def averageChange(path) 
+#### 3. def averageChange(path) 
 - The function takes path parameter as an input and perform the following:
 - Open file in read mode.
 - Use csv reader method to read the file line by line.
@@ -54,7 +54,7 @@ All functions use global variable "path" to pass the file path.
 - Note: currently the loop does not take the last row into the computation.
 
 
-## PyPoll
+## II. PyPoll
 For this analysis three functions have been implemented (note: only two are used)
 1. Find total number of votes
 2. Create a list of candidates
@@ -63,19 +63,21 @@ Below is the current documentation for each function:
 All functions use global variable "path" to pass the file path.
 
 ### Define a function to count total number of months.
-### def find_votes_total(path)
+#### 1. def find_votes_total(path)
 - This function takes the path variable defined outside the function as an input.
 - Also uses an output_file variable to specify the path and the file name for the outputs.
 - Using list comprehension, count the total number of rows and output the results as Total Votes.
 
-### def create_candidates_list
-### (not used in the final analysis, for testing only)
+### Define a function create a list of candidates
+#### 2. def create_candidates_list(path, output_file)
+##### (not used in the final analysis, - for testing only)
 - This auxiliary function is to create a list with all the candidates in the elections.
 - The functino opens provides csv file in read mode
 - Iterates through the csv_reader_object to check if candidate is already included in the list of candidates.
 - If candidate is not yet in the list, then add it. Otherwise, continue the loop
 
-### def analyze_votes_per_candidates
+### Define a function to analyse the results of the elections per candidate and find the winner 
+#### 3. def analyse_votes_per_candidates(path, output_file)
 - The function takes two parameters as input - input file path and output file path and name of the file.
 - Open file in read mode.
 - Initialize rows_num - total number of rows in the csv file

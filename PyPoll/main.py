@@ -55,7 +55,7 @@ def create_candidates_list(path, output_file):
                 candidates_list.append(candidate)
         return(candidates_list)
 
-def analyze_votes_per_candidates(path, output_file):
+def analyse_votes_per_candidates(path, output_file):
     '''
     The function takes two parameters as input - input file path and output file path and name of the file.
     Open file in read mode.
@@ -120,4 +120,4 @@ def analyze_votes_per_candidates(path, output_file):
 
 find_votes_total(path)
 create_candidates_list(path, output_file)
-analyze_votes_per_candidates(path, output_file)
+analyse_votes_per_candidates(path, output_file)
