@@ -1,6 +1,7 @@
 import os
 import csv
 from collections import Counter
+from collections import OrderedDict 
 
 # Set the file path
 path=os.path.join("Resources","election_data.csv")
@@ -70,20 +71,31 @@ def find_candidate_with_maximum_votes(path, output_file):
         csv_reader_object = csv.reader(file_input, delimiter=',')
         next(csv_reader_object) # to skip the header
         
-        # Create a new list to store candidates from candidates column
+        # Create an initialize a new list to store candidates from candidates column
         rows_num = 0
         list_of_candidates = [] 
 
         # Start for loop to iterate through the csv file
         for value in csv_reader_object:
-            list_of_candidates.append(value[2])
-            rows_num += 1
+            list_of_candidates.append(value[2]) # append candidates to the list of candidates
+            rows_num += 1 # count running total number of rows
             
-        #list_of_candidates_sorted
-        list_of_candidates_sorted = sorted(list_of_candidates)
+        # #list_of_candidates_sorted
+        # list_of_candidates_sorted = sorted(list_of_candidates)
         
         # Use Counter method to count the votes:
-        vote_count = Counter(list_of_candidates_sorted)
+        vote_count = Counter(list_of_candidates) # Counter summarized the list with votes into a dictionary
+        vote_count_sorted = vote_count.most_common() # use most common method to sort the dictionary based on the key value
+        
+        # Open the text file to write the output results
+        textFileOutput = open(output_file,"a+")
+        
+        # Start a for loop over the list of candidates sorted by their votes.
+        # Calculate the percentage and output in the console and the text file
+        for i in range(len(vote_count_sorted)):
+            candidate_percentage = round((((vote_count_sorted[i][1]) / rows_num) * 100), 2)
+            print(f"{vote_count_sorted[i][0]}: {candidate_percentage}% ({vote_count_sorted[i][1]})")
+            textFileOutput.write(f"{vote_count_sorted[i][0]}: {candidate_percentage}% ({vote_count_sorted[i][1]}) \n")
         
         # Find the maximum number of votes:
         max_votes = max(vote_count.values())
@@ -91,12 +103,15 @@ def find_candidate_with_maximum_votes(path, output_file):
         # Use list comprehension method to create a list with the candidates with max votes (in case votes count is the same for several candidates)
         list_of_candidates_with_max_votes = [i for i in vote_count.keys() if vote_count[i] == max_votes]
         
-        max_vote_percentage = ((max_votes / rows_num) * 100) # Calculate the percentage for the winner
-        print(f"{list_of_candidates_with_max_votes[0]}: {round(max_vote_percentage, 3)}% ({max_votes})")
-
-        # Append to an existing file:
-        textFileOutput = open(output_file,"a+")
-        textFileOutput.write(f"{list_of_candidates_with_max_votes[0]}: {round(max_vote_percentage, 3)}% ({max_votes})")
+        # Print to the console:
+        print("--------------------------")
+        print(f"Winner: {list_of_candidates_with_max_votes[0]}")
+        print("--------------------------")
+        
+        # Output to the file:
+        textFileOutput.write("--------------------------- \n")
+        textFileOutput.write(f"Winner: {list_of_candidates_with_max_votes[0]} \n")
+        textFileOutput.write("--------------------------- \n")
         textFileOutput.close()
 
 
@@ -106,8 +121,3 @@ def find_candidate_with_maximum_votes(path, output_file):
 find_votes_total(path)
 create_candidates_list(path, output_file)
 find_candidate_with_maximum_votes(path, output_file)
-
-#test(path, output_file)
-#calculate_average_changes_and_pnl_max_min(path, output_file)
-
-#print(f"The list of all candidates: {candidates_list}.")
